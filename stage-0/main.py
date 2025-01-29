@@ -23,3 +23,7 @@ def root():
             "current_datetime": get_current_datetime(),
             "github_url": "https://github.com/chizzyedoka"
             }
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
