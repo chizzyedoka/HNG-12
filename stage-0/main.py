@@ -21,7 +21,7 @@ def root():
     return {
             "email": "chisomedoka48@gmail.com",
             "current_datetime": get_current_datetime(),
-            "github_url":"https://github.com/chizzyedoka/HNG-12/blob/main/stage-0"
+            "github_url":"https://github.com/chizzyedoka/HNG-12"
     }
 
 if __name__ == "__main__":
