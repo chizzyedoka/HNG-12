@@ -45,5 +45,5 @@ The response is a JSON object with the following structure:
 {
     "email": "chisomedoka48@gmail.com",
     "current_datetime": "2023-10-01T12:00:00Z",
-    "github_url": "https://github.com/chizzyedoka"
+    "github_url": "https://github.com/chizzyedoka/HNG-12/blob/main/stage-0"
 }
