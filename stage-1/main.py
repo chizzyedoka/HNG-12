@@ -26,14 +26,15 @@ async def classify_number(number):
     
     # if not is_numeric(number):
     #     raise HTTPException(status_code=400, detail={"number": number, "error": True})
-    # Validate input
-    print(number)
-    print(is_valid_number(number))
     if not is_valid_number(number):
         return JSONResponse(
             status_code=400,
             content={"error": True, "number": number}
         )
+    
+    is_negative = number.startswith("-")
+    if is_negative:
+        number = number[1:]
     
     try:
         num = int(number)

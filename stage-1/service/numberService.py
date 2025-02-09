@@ -12,7 +12,7 @@ def is_valid_number(value) -> bool:
         return False
     
     # Handle the case of just a minus sign
-    if value == '-' or '-' in value:
+    if value == '-':
         return False
         
     # Check if it's a valid integer string
