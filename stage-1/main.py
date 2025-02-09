@@ -1,10 +1,21 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from typing import Optional
 from fastapi.responses import JSONResponse
 from model.numberResponse import NumberResponse
 from service.numberService import is_armstrong, is_prime, is_perfect, get_digit_sum, get_number_properties, get_fun_fact
 
 app = FastAPI()
+
+
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Adjust the origins as needed
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.get("/api/classify-number", response_model=NumberResponse)
