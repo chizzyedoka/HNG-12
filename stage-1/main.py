@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from typing import Optional
 from fastapi.responses import JSONResponse
 from model.numberResponse import NumberResponse
-from service.numberService import is_armstrong, is_prime, is_perfect, get_digit_sum, get_number_properties, get_fun_fact
+from service.numberService import is_armstrong, is_prime, is_perfect, get_digit_sum, get_number_properties, get_fun_fact, is_numeric, is_valid_number
 
 app = FastAPI()
 
@@ -19,17 +19,28 @@ app.add_middleware(
 
 
 @app.get("/api/classify-number", response_model=NumberResponse)
-async def classify_number(number: Optional[int] = None):
+async def classify_number(number):
     # Input validation
     if number is None:
         raise HTTPException(status_code=400, detail={"number": "missing", "error": True})
+    
+    # if not is_numeric(number):
+    #     raise HTTPException(status_code=400, detail={"number": number, "error": True})
+    # Validate input
+    print(number)
+    print(is_valid_number(number))
+    if not is_valid_number(number):
+        return JSONResponse(
+            status_code=400,
+            content={"error": True, "number": number}
+        )
     
     try:
         num = int(number)
     except ValueError:
         return JSONResponse(
             status_code=400,
-            content={"number": str(number), "error": True}
+            content={"error": True, "number": number}
         )
     
     # Calculate all properties
@@ -49,7 +60,7 @@ async def classify_number(number: Optional[int] = None):
 async def http_exception_handler(request, exc):
     return JSONResponse(
         status_code=exc.status_code,
-        content=exc.detail
+        content={"error": True, "detail": exc.detail}
     )
 
 if __name__ == "__main__":

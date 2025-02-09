@@ -3,6 +3,62 @@ from typing import List
 
 import requests
 
+def is_valid_number(value) -> bool:
+    """
+    Check if a string represents a valid integer, including negative numbers.
+    Returns True for valid integers (including negative), False otherwise.
+    """
+    if not value:
+        return False
+    
+    # Handle the case of just a minus sign
+    if value == '-' or '-' in value:
+        return False
+        
+    # Check if it's a valid integer string
+    try:
+        int(value)
+        return True
+    except ValueError:
+        return False
+    
+def is_numeric(value):
+    """
+    Check if a value can be converted to a numeric type (int or float).
+    
+    Args:
+        value: Any type of input
+        
+    Returns:
+        bool: True if the value can be converted to a number, False otherwise
+        
+    Examples:
+        >>> is_numeric("123")     # True
+        >>> is_numeric("-123.45") # True
+        >>> is_numeric("abc")     # False
+        >>> is_numeric(None)      # False
+        >>> is_numeric("")        # False
+    """
+    if value is None:
+        return False
+        
+    # Convert to string if not already
+    if not isinstance(value, str):
+        value = str(value)
+        
+    # Remove whitespace
+    value = value.strip()
+    
+    # Handle empty string
+    if not value:
+        return False
+        
+    # Handle negative numbers and decimals
+    value = value.replace('-', '', 1)  # Remove first minus sign if exists
+    value = value.replace('.', '', 1)  # Remove first decimal point if exists
+    
+    # Check if remaining string contains only digits
+    return value.isdigit()
 
 def is_armstrong(num: int) -> bool:
     # Convert number to string to count digits
